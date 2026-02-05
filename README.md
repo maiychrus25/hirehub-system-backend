@@ -90,7 +90,7 @@ backend/
 ### 4.1 Yêu cầu môi trường
 
 - **Node.js**: Phiên bản 16.0 trở lên (khuyến nghị 18+)
-- **npm**: Package manager (đi kèm Node.js)
+- **yarn**: Package manager (đi kèm Node.js)
 - **MongooDB**: Database server (phiên bản 5.7+)
 - **Git**: Để clone repo (nếu cần)
 
@@ -130,12 +130,12 @@ yarn --version
 - **Build TypeScript**:
 
   ```bash
-  npm run build
+  yarn run build
   ```
 
 - **Chạy production**:
   ```bash
-  npm start
+  yarn start
   ```
 
 ---
@@ -151,12 +151,9 @@ Tạo file `.env` trong thư mục `backend/` để cấu hình:
 PORT=8000
 NODE_ENV=development
 
-# Database MySQL
-DB_HOST=localhost
-DB_PORT=3306
-DB_USER=root
-DB_PASSWORD=your_password
-DB_NAME=hirehub
+# Database MONGODB
+DATABASE_URL=you_db_url
+DATABASE_PASS=your_password
 
 # JWT Authentication
 JWT_SECRET=your_secret_key_here
@@ -202,5 +199,6 @@ FRONTEND_URL=http://localhost:3000
    - Không return stack trace công khai
    - Log error chi tiết cho debugging
    - Return thông báo lỗi thân thiện cho client
+
 
 
