@@ -39,7 +39,7 @@ backend/
 ├── search.controller.ts              # (deprecated hoặc backup) Controller tìm kiếm
 │
 ├── config/
-│   └── database.config.ts            # Cấu hình kết nối MySQL database
+│   └── database.config.ts            # Cấu hình kết nối mongo database
 │
 ├── controllers/                      # Xử lý request & response
 │   ├── auth.controller.ts            # Đăng nhập, đăng ký, refresh token
@@ -199,6 +199,7 @@ FRONTEND_URL=http://localhost:3000
    - Không return stack trace công khai
    - Log error chi tiết cho debugging
    - Return thông báo lỗi thân thiện cho client
+
 
 
 
