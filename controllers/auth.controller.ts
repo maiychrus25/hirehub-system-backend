@@ -10,7 +10,7 @@ export const check = async (req: Request, res: Response) => {
     if(!token) {
       res.status(400).json({
         code: "error",
-        message: "Token không hợp lệ!"
+        message: "Token không tồn tại!"
       });
       return;
     }

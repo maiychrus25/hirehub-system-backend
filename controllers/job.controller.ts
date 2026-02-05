@@ -14,9 +14,9 @@ export const detail = async (req: Request, res: Response) => {
     if(!record) {
       return res.status(404).json({
         code: "error",
-        message: "Không tồn tài bản ghi!"
+        message: "Không tồn tài bản ghi!",
+        data: null
       })
-      return;
     }
 
     const companyInfo = await AccountCompany.findOne({
@@ -26,7 +26,8 @@ export const detail = async (req: Request, res: Response) => {
     if(!companyInfo) {
       return res.status(404).json({
         code: "error",
-        message: "Không tồn tài bản ghi!"
+        message: "Không tồn tài bản ghi!",
+        data: null
       })
     }
 
@@ -50,15 +51,16 @@ export const detail = async (req: Request, res: Response) => {
       workOvertime: companyInfo.workOvertime
     };
 
-    res.status(200).json({
-      code: "success",
-      message: "Thành công!",
+    return res.status(200).json({
+      code: 'success',
+      message: 'Lấy chi tiết công việc thành công!',
       jobDetail: jobDetail
-    })
+    });
   } catch (error) {
     res.status(500).json({
       code: "error",
-      message: "Có lỗi gì đó đã xảy ra. Vui lòng thử lại!"
+      message: "Có lỗi gì đó đã xảy ra. Vui lòng thử lại!",
+      data: null
     })
   }
 }
@@ -72,12 +74,14 @@ export const applyPost = async (req: Request, res: Response) => {
 
     res.status(200).json({
       code: "success",
-      message: "Đã gửi CV thành công!"
+      message: "Gửi CV thành công!",
+      data: null
     });
   } catch (error) {
     res.status(400).json({
       code: "success",
-      message: "Dữ liệu không hợp lệ!"
+      message: "Dữ liệu không hợp lệ!",
+      data: null
     });
    }
 }
