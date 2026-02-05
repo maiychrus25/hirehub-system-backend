@@ -22,7 +22,7 @@ Backend đóng vai trò quan trọng:
 | **Node.js**           | Runtime JavaScript phía máy chủ                        |
 | **Express.js**        | Framework web nhẹ cho Node.js, xây dựng REST API       |
 | **TypeScript**        | Ngôn ngữ lập trình cung cấp type safety cho JavaScript |
-| **MongoDB, Mongoose** | Database quan hệ lưu trữ dữ liệu ứng dụng              |
+| **MongoDB, Mongoose** | Database lưu trữ dữ liệu ứng dụng              |
 | **Cloudinary**        | Dịch vụ cloud lưu trữ & quản lý file (ảnh, CV)         |
 | **yarn**              | Package manager quản lý dependencies                   |
 | **Middleware**        | Xử lý xác thực, logging, CORS, v.v.                    |
@@ -202,3 +202,4 @@ FRONTEND_URL=http://localhost:3000
    - Không return stack trace công khai
    - Log error chi tiết cho debugging
    - Return thông báo lỗi thân thiện cho client
+
