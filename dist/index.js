@@ -17,7 +17,7 @@ const port = process.env.PORT || 4000;
 (0, database_config_1.connectDB)();
 // Cấu hình CORS
 app.use((0, cors_1.default)({
-    origin: "http://localhost:3000", // Phải chỉ định tên miền cụ thể
+    origin: "https://hirehub-system-frontend.vercel.app", // Phải chỉ định tên miền cụ thể
     credentials: true, // Cho phép gửi cookie
 }));
 // Cho phép gửi dữ liệu lên dạng json
