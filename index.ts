@@ -28,7 +28,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 // Thiết lập đường dẫn
-app.use("/", routes);
+app.use("/api/v1", routes);
 
 app.listen(port, () => {
   console.log(`Website đang chạy trên cổng ${port}`);
