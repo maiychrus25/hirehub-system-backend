@@ -5,6 +5,8 @@
     "moduleResolution": "node", // ho tro import module tu node modules 
     "esModuleInterop": true, // dung import thay require 
     "resolveJsonModule": true, // cho phep import file JSON 
-    "strict": true // bat che do nghiem ngat
+    "strict": true, // bat che do nghiem ngat
+    "rootDir": "src",
+    "outDir": "dist"
   }
 }

@@ -5,12 +5,12 @@ import dotenv from "dotenv";
 dotenv.config();
 
 import cors from "cors";
-import routes from "./routes/index.route";
+import routes from "./routes/index.route.js";
 import { connectDB } from "./config/database.config";
 import cookieParser from "cookie-parser";
 
 const app = express();
-const port = 4000;
+const port = process.env.PORT || 4000; 
 
 // Kết nối CSDL
 connectDB();
