@@ -13,11 +13,10 @@ export const registerPost = async (req: Request, res: Response) => {
   });
 
   if(existAccount) {
-    res.json({
+    return res.status(400).json({
       code: "error",
       message: "Email đã tồn tại trong hệ thống!"
     })
-    return;
   }
 
   // Mã hóa mật khẩu
@@ -27,7 +26,7 @@ export const registerPost = async (req: Request, res: Response) => {
   const newAccount = new AccountUser(req.body);
   await newAccount.save();
 
-  res.json({
+  res.status(200).json({
     code: "success",
     message: "Đăng ký tài khoản thành công!"
   })
@@ -41,21 +40,19 @@ export const loginPost = async (req: Request, res: Response) => {
   });
 
   if(!existAccount) {
-    res.json({
+    return res.status(400).json({
       code: "error",
       message: "Email không tồn tại trong hệ thống!"
     })
-    return;
   }
 
   const isPasswordValid = await bcrypt.compare(password, `${existAccount.password}`);
 
   if(!isPasswordValid) {
-    res.json({
+    return res.status(400).json({
       code: "error",
       message: "Mật khẩu không đúng!"
     })
-    return;
   }
 
   const token = jwt.sign(
@@ -76,7 +73,7 @@ export const loginPost = async (req: Request, res: Response) => {
     sameSite: "lax" // Cho phép gửi cookie giữa các tên miền
   });
 
-  res.json({
+  res.status(200).json({
     code: "success",
     message: "Đăng nhập thành công!"
   })
@@ -93,7 +90,7 @@ export const profilePatch = async (req: AccountRequest, res: Response) => {
     _id: req.account.id
   }, req.body);
 
-  res.json({
+  res.status(200).json({
     code: "success",
     message: "Cập nhật thành công!"
   })
@@ -138,14 +135,13 @@ export const listCV = async (req: AccountRequest, res: Response) => {
       }
     }
 
-    res.json({
+    res.status(200).json({
       code: "success",
       message: "Thành công!",
       cvs: dataFinal
     })
   } catch (error) {
-    console.log(error);
-    res.json({
+    res.status(400).json({
       code: "error",
       message: "Dữ liệu không hợp lệ!"
     })

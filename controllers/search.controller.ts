@@ -100,7 +100,7 @@ export const search = async (req: Request, res: Response) => {
     }
   }
 
-  res.json({
+  res.status(200).json({
     code: "success",
     message: "Thành công!",
     jobs: dataFinal,

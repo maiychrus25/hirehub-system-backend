@@ -13,11 +13,10 @@ export const registerPost = async (req: Request, res: Response) => {
   });
 
   if(existAccount) {
-    res.json({
+    return res.status(400).json({
       code: "error",
       message: "Email đã tồn tại trong hệ thống!"
     })
-    return;
   }
 
   // Mã hóa mật khẩu
@@ -27,7 +26,7 @@ export const registerPost = async (req: Request, res: Response) => {
   const newAccount = new AccountCompany(req.body);
   await newAccount.save();
 
-  res.json({
+  res.status(200).json({
     code: "success",
     message: "Đăng ký tài khoản thành công!"
   })
@@ -41,7 +40,7 @@ export const loginPost = async (req: Request, res: Response) => {
   });
 
   if(!existAccount) {
-    res.json({
+    res.status(404).json({
       code: "error",
       message: "Email không tồn tại trong hệ thống!"
     })
@@ -51,7 +50,7 @@ export const loginPost = async (req: Request, res: Response) => {
   const isPasswordValid = await bcrypt.compare(password, `${existAccount.password}`);
 
   if(!isPasswordValid) {
-    res.json({
+    res.status(400).json({
       code: "error",
       message: "Mật khẩu không đúng!"
     })
@@ -76,7 +75,7 @@ export const loginPost = async (req: Request, res: Response) => {
     sameSite: "lax" // Cho phép gửi cookie giữa các tên miền
   });
 
-  res.json({
+  res.status(200).json({
     code: "success",
     message: "Đăng nhập thành công!"
   })
@@ -93,7 +92,7 @@ export const profilePatch = async (req: AccountRequest, res: Response) => {
     _id: req.account.id
   }, req.body);
 
-  res.json({
+  res.status(200).json({
     code: "success",
     message: "Cập nhật thành công!"
   })
@@ -118,13 +117,12 @@ export const createJobPost = async (req: AccountRequest, res: Response) => {
     const newRecord = new Job(req.body);
     await newRecord.save();
 
-    res.json({
+    res.status(200).json({
       code: "success",
       message: "Tạo công việc thành công!"
     })
   } catch (error) {
-    console.log(error);
-    res.json({
+    res.status(400).json({
       code: "error",
       message: "Dữ liệu không hợp lệ!"
     })
@@ -175,15 +173,14 @@ export const listJob = async (req: AccountRequest, res: Response) => {
       });
     }
 
-    res.json({
+    res.status(200).json({
       code: "success",
       message: "Thành công!",
       jobs: dataFinal,
       totalPage: totalPage
     })
   } catch (error) {
-    console.log(error);
-    res.json({
+    res.status(400).json({
       code: "error",
       message: "Dữ liệu không hợp lệ!"
     })
@@ -201,20 +198,19 @@ export const editJob = async (req: AccountRequest, res: Response) => {
     })
 
     if(!jobDetail) {
-      res.json({
+      return res.status(404).json({
         code: "error",
-        message: "Dữ liệu không hợp lệ!"
+        message: "Không tồn tại!"
       })
-      return;
     }
 
-    res.json({
+    res.status(200).json({
       code: "success",
       message: "Thành công!",
       jobDetail: jobDetail
     })
   } catch (error) {
-    res.json({
+    res.status(400).json({
       code: "error",
       message: "Dữ liệu không hợp lệ!"
     })
@@ -232,11 +228,10 @@ export const editJobPatch = async (req: AccountRequest, res: Response) => {
     })
 
     if(!jobDetail) {
-      res.json({
+      return res.status(404).json({
         code: "error",
-        message: "Dữ liệu không hợp lệ!"
+        message: "Không tồn tại!"
       })
-      return;
     }
 
     req.body.companyId = req.account.id;
@@ -258,12 +253,12 @@ export const editJobPatch = async (req: AccountRequest, res: Response) => {
       companyId: companyId
     }, req.body);
 
-    res.json({
+    res.status(200).json({
       code: "success",
       message: "Cập nhật thành công!"
     })
   } catch (error) {
-    res.json({
+    res.status(400).json({
       code: "error",
       message: "Dữ liệu không hợp lệ!"
     })
@@ -281,11 +276,10 @@ export const deleteJobDel = async (req: AccountRequest, res: Response) => {
     })
 
     if(!jobDetail) {
-      res.json({
+      return res.status(404).json({
         code: "error",
-        message: "Dữ liệu không hợp lệ!"
+        message: "Không tồn tại!"
       })
-      return;
     }
 
     await Job.deleteOne({
@@ -293,12 +287,12 @@ export const deleteJobDel = async (req: AccountRequest, res: Response) => {
       companyId: companyId
     })
 
-    res.json({
+    res.status(204).json({
       code: "success",
       message: "Đã xóa công việc!"
     })
   } catch (error) {
-    res.json({
+    res.status(400).json({
       code: "error",
       message: "Dữ liệu không hợp lệ!"
     })
@@ -354,7 +348,7 @@ export const list = async (req: Request, res: Response) => {
     companyListFinal.push(dataItem);
   }
 
-  res.json({
+  res.status(200).json({
     code: "success",
     message: "Thành công",
     companyList: companyListFinal,
@@ -371,9 +365,9 @@ export const detail = async (req: Request, res: Response) => {
     })
 
     if(!record) {
-      res.json({
+      res.status(404).json({
         code: "error",
-        message: "Dữ liệu không hợp lệ!"
+        message: "Không tồn tại!"
       })
       return;
     }
@@ -422,15 +416,14 @@ export const detail = async (req: Request, res: Response) => {
       dataFinal.push(itemFinal);
     }
 
-    res.json({
+    res.status(200).json({
       code: "success",
       message: "Thành công!",
       companyDetail: companyDetail,
       jobs: dataFinal,
     })
   } catch (error) {
-    console.log(error);
-    res.json({
+    res.status(400).json({
       code: "error",
       message: "Dữ liệu không hợp lệ!"
     })
@@ -480,14 +473,13 @@ export const listCV = async (req: AccountRequest, res: Response) => {
       }
     }
 
-    res.json({
+    res.status(200).json({
       code: "success",
       message: "Thành công!",
       cvs: dataFinal
     })
   } catch (error) {
-    console.log(error);
-    res.json({
+    res.status(400).json({
       code: "error",
       message: "Dữ liệu không hợp lệ!"
     })
@@ -504,11 +496,10 @@ export const detailCV = async (req: AccountRequest, res: Response) => {
     })
 
     if(!infoCV) {
-      res.json({
+      return res.status(404).json({
         code: "error",
-        message: "Dữ liệu không hợp lệ!"
+        message: "Bản ghi không tồn tại!"
       })
-      return;
     }
 
     const infoJob = await Job.findOne({
@@ -517,11 +508,10 @@ export const detailCV = async (req: AccountRequest, res: Response) => {
     });
 
     if(!infoJob) {
-      res.json({
+      return res.status(404).json({
         code: "error",
-        message: "Dữ liệu không hợp lệ!"
+        message: "Bản ghi không tồn tại!"
       })
-      return;
     }
 
     const dataFinalCV = {
@@ -547,15 +537,14 @@ export const detailCV = async (req: AccountRequest, res: Response) => {
       viewed: true
     })
 
-    res.json({
+    res.status(200).json({
       code: "success",
       message: "Thành công!",
       cvDetail: dataFinalCV,
       jobDetail: dataFinalJob
     })
   } catch (error) {
-    console.log(error);
-    res.json({
+    res.status(400).json({
       code: "error",
       message: "Dữ liệu không hợp lệ!"
     })
@@ -573,11 +562,10 @@ export const changeStatusCVPatch = async (req: AccountRequest, res: Response) =>
     })
 
     if(!infoCV) {
-      res.json({
+      return res.status(404).json({
         code: "error",
-        message: "Dữ liệu không hợp lệ!"
+        message: "Không tồn tại!"
       })
-      return;
     }
 
     const infoJob = await Job.findOne({
@@ -586,11 +574,10 @@ export const changeStatusCVPatch = async (req: AccountRequest, res: Response) =>
     });
 
     if(!infoJob) {
-      res.json({
+      return res.status(404).json({
         code: "error",
-        message: "Dữ liệu không hợp lệ!"
+        message: "Không tồn tại!"
       })
-      return;
     }
 
     await CV.updateOne({
@@ -599,13 +586,12 @@ export const changeStatusCVPatch = async (req: AccountRequest, res: Response) =>
       status: statusCV
     })
 
-    res.json({
+    res.status(200).json({
       code: "success",
       message: "Đã cập nhật trạng thái!"
     })
   } catch (error) {
-    console.log(error);
-    res.json({
+    res.status(400).json({
       code: "error",
       message: "Dữ liệu không hợp lệ!"
     })
@@ -622,11 +608,10 @@ export const deleteCVDel = async (req: AccountRequest, res: Response) => {
     })
 
     if(!infoCV) {
-      res.json({
+      return res.status(404).json({
         code: "error",
-        message: "Dữ liệu không hợp lệ!"
+        message: "Không tồn tại!"
       })
-      return;
     }
 
     const infoJob = await Job.findOne({
@@ -635,24 +620,22 @@ export const deleteCVDel = async (req: AccountRequest, res: Response) => {
     });
 
     if(!infoJob) {
-      res.json({
+       return res.status(404).json({
         code: "error",
-        message: "Dữ liệu không hợp lệ!"
+        message: "Không tồn tại!"
       })
-      return;
     }
 
     await CV.deleteOne({
       _id: cvId
     })
 
-    res.json({
+    res.status(204).json({
       code: "success",
       message: "Đã xóa CV!"
     })
   } catch (error) {
-    console.log(error);
-    res.json({
+    res.status(400).json({
       code: "error",
       message: "Dữ liệu không hợp lệ!"
     })

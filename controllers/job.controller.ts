@@ -12,9 +12,9 @@ export const detail = async (req: Request, res: Response) => {
     })
 
     if(!record) {
-      res.json({
+      return res.status(404).json({
         code: "error",
-        message: "Thất bại!"
+        message: "Không tồn tài bản ghi!"
       })
       return;
     }
@@ -24,11 +24,10 @@ export const detail = async (req: Request, res: Response) => {
     })
 
     if(!companyInfo) {
-      res.json({
+      return res.status(404).json({
         code: "error",
-        message: "Thất bại!"
+        message: "Không tồn tài bản ghi!"
       })
-      return;
     }
 
     const jobDetail = {
@@ -51,15 +50,15 @@ export const detail = async (req: Request, res: Response) => {
       workOvertime: companyInfo.workOvertime
     };
 
-    res.json({
+    res.status(200).json({
       code: "success",
       message: "Thành công!",
       jobDetail: jobDetail
     })
   } catch (error) {
-    res.json({
+    res.status(500).json({
       code: "error",
-      message: "Thất bại!"
+      message: "Có lỗi gì đó đã xảy ra. Vui lòng thử lại!"
     })
   }
 }
@@ -71,15 +70,14 @@ export const applyPost = async (req: Request, res: Response) => {
     const newRecord = new CV(req.body);
     await newRecord.save();
 
-    res.json({
+    res.status(200).json({
       code: "success",
       message: "Đã gửi CV thành công!"
     });
   } catch (error) {
-    console.log(error);
-    res.json({
+    res.status(400).json({
       code: "success",
       message: "Dữ liệu không hợp lệ!"
     });
-  }
+   }
 }

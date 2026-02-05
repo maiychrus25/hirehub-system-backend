@@ -8,7 +8,7 @@ export const check = async (req: Request, res: Response) => {
     const token = req.cookies.token;
 
     if(!token) {
-      res.json({
+      res.status(400).json({
         code: "error",
         message: "Token không hợp lệ!"
       });
@@ -33,7 +33,7 @@ export const check = async (req: Request, res: Response) => {
         avatar: existAccountUser.avatar,
       };
 
-      res.json({
+      res.status(200).json({
         code: "success",
         message: "Token hợp lệ!",
         infoUser: infoUser
@@ -63,7 +63,7 @@ export const check = async (req: Request, res: Response) => {
         city: existAccountCompany.city,
       };
 
-      res.json({
+      res.status(200).json({
         code: "success",
         message: "Token hợp lệ!",
         infoCompany: infoCompany
@@ -73,14 +73,14 @@ export const check = async (req: Request, res: Response) => {
 
     if(!existAccountUser && !existAccountCompany) {
       res.clearCookie("token");
-      res.json({
+      res.status(400).json({
         code: "error",
         message: "Token không hợp lệ!"
       });
     }
   } catch (error) {
     res.clearCookie("token");
-    res.json({
+    res.status(400).json({
       code: "error",
       message: "Token không hợp lệ!"
     });
@@ -89,7 +89,7 @@ export const check = async (req: Request, res: Response) => {
 
 export const logout = async (req: Request, res: Response) => {
   res.clearCookie("token");
-  res.json({
+  res.status(200).json({
     code: "success",
     message: "Đã đăng xuất!"
   })
