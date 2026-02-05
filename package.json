@@ -7,7 +7,7 @@
   "private": true,
   "scripts": {
     "start": "nodemon index.ts",
-    "start:prod": "NODE_ENV=production nodemon index.ts"
+    "start:prod": "NODE_ENV=production node index.ts"
   },
   "dependencies": {
     "@types/cookie-parser": "^1.4.9",
@@ -32,5 +32,14 @@
     "nodemon": "^3.1.10",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3"
-  }
+  },
+  "packageManager": "yarn@1.22.22",
+  "engines": {
+    "node": ">=20"
+  },
+  "browsersList": [ 
+    ">0.5%",
+    "not dead",
+    "not ie 11"
+  ] 
 }
