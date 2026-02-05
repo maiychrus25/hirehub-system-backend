@@ -17,7 +17,7 @@ connectDB();
 
 // Cấu hình CORS
 app.use(cors({
-  origin: "http://localhost:3000", // Phải chỉ định tên miền cụ thể
+  origin: "https://hirehub-system-frontend.vercel.app", // Phải chỉ định tên miền cụ thể
   credentials: true, // Cho phép gửi cookie
 }));
 

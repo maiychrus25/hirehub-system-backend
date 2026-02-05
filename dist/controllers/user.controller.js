@@ -68,7 +68,7 @@ const loginPost = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         maxAge: 24 * 60 * 60 * 1000, // 1 ngày
         httpOnly: true,
         secure: process.env.NODE_ENV === "production", // https để true, http để fasle
-        sameSite: "lax" // Cho phép gửi cookie giữa các tên miền
+        sameSite: "none" // Cho phép gửi cookie giữa các tên miền
     });
     res.status(200).json({
         code: "success",
