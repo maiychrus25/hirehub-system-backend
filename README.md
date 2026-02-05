@@ -120,7 +120,7 @@ yarn --version
 4. **Chạy development server**
 
    ```bash
-   yarn run dev
+   yarn start
    ```
 
    Server sẽ chạy tại: `http://localhost:8000`
@@ -202,4 +202,5 @@ FRONTEND_URL=http://localhost:3000
    - Không return stack trace công khai
    - Log error chi tiết cho debugging
    - Return thông báo lỗi thân thiện cho client
+
 
